@@ -2,7 +2,7 @@
 
 sudo add-apt-repository ppa:beineri/opt-qt571-trusty -y
 sudo apt-get update -q
-sudo apt-get install qt57-meta-full -y
+sudo apt-get install qt57-meta-dbg-full -y
 
 function build_contrib {
   cmake . -DBUILD_TYPE=$1
