@@ -33,8 +33,7 @@
 # --------------------------------------------------------------------------
 
 project("OpenMS_UTILS")
-cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
-cmake_policy(SET CMP0028 NEW)
+cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 
 # --------------------------------------------------------------------------
 # OpenMS' UTILS tools
