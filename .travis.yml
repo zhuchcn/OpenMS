@@ -56,6 +56,10 @@ matrix:
       os: linux
       compiler: gcc
 
+    - env: ENABLE_STYLE_TESTING=OFF ENABLE_TOPP_TESTING=ON ENABLE_CLASS_TESTING=ON WITH_GUI=ON ADDRESS_SANITIZER=Off BUILD_TYPE=Debug
+      os: linux
+      compiler: gcc
+
 ## gcc tests class and TOPP tests (if we run into a time limit, we can split it)
 ## PP Wavelet is turned off due to unstable behavior ... 
     - env: ENABLE_STYLE_TESTING=OFF ENABLE_TOPP_TESTING=ON ENABLE_CLASS_TESTING=ON WITH_GUI=ON ADDRESS_SANITIZER=Off BUILD_TYPE=Release
