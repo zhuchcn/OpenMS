@@ -33,8 +33,7 @@
 # --------------------------------------------------------------------------
 
 project("OpenMS_TOPP")
-cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
-cmake_policy(SET CMP0028 OLD)
+cmake_minimum_required(VERSION 2.8.8 FATAL_ERROR)
 
 # --------------------------------------------------------------------------
 # OpenMS' TOPP tools
