@@ -114,7 +114,9 @@ START_SECTION(void load(const String& filename, MapType& map))
       // slof is no good for values smaller than 5
       // if (exp.getSpectrum(i)[k].getIntensity() < 1.0) {continue;} 
       TEST_REAL_SIMILAR(exp.getSpectrum(i)[k].getIntensity(), exp2.getSpectra()[i][k].getIntensity())
+      break;
     }
+      break;
   }
 
   for (Size i = 0; i < exp.getNrChromatograms(); i++)
@@ -123,7 +125,9 @@ START_SECTION(void load(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getChromatogram(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getChromatogram(i)[k].getIntensity(), exp2.getChromatograms()[i][k].getIntensity())
+      break;
     }
+      break;
   }
 
   TOLERANCE_ABSOLUTE(1e-5)
@@ -134,7 +138,9 @@ START_SECTION(void load(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getSpectrum(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getSpectrum(i)[k].getMZ(), exp2.getSpectra()[i][k].getMZ())
+      break;
     }
+      break;
 
   }
   TOLERANCE_ABSOLUTE(0.05) // max 0.05 seconds error in RT
@@ -144,7 +150,9 @@ START_SECTION(void load(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getChromatogram(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getChromatogram(i)[k].getRT(), exp2.getChromatograms()[i][k].getRT())
+      break;
     }
+      break;
   }
 
   // no 1:1 mapping of experimental settings ...
@@ -228,7 +236,9 @@ START_SECTION(void store(const String& filename, MapType& map))
       // slof is no good for values smaller than 5
       // if (exp.getSpectrum(i)[k].getIntensity() < 1.0) {continue;} 
       TEST_REAL_SIMILAR(exp.getSpectrum(i)[k].getIntensity(), exp2.getSpectra()[i][k].getIntensity())
+      break;
     }
+      break;
 
   }
 
@@ -238,7 +248,9 @@ START_SECTION(void store(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getChromatogram(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getChromatogram(i)[k].getIntensity(), exp2.getChromatograms()[i][k].getIntensity())
+      break;
     }
+      break;
   }
 
   for (Size i = 0; i < exp.getNrSpectra(); i++)
@@ -247,7 +259,9 @@ START_SECTION(void store(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getSpectrum(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getSpectrum(i)[k].getMZ(), exp2.getSpectra()[i][k].getMZ())
+      break;
     }
+      break;
   }
 
   for (Size i = 0; i < exp.getNrChromatograms(); i++)
@@ -256,7 +270,9 @@ START_SECTION(void store(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getChromatogram(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getChromatogram(i)[k].getRT(), exp2.getChromatograms()[i][k].getRT())
+      break;
     }
+      break;
   }
 
   // no 1:1 mapping of experimental settings ...
@@ -316,7 +332,9 @@ START_SECTION([EXTRA] void store(const String& filename, MapType& map))
       // slof is no good for values smaller than 5
       // if (exp.getSpectrum(i)[k].getIntensity() < 1.0) {continue;} 
       TEST_REAL_SIMILAR(exp.getSpectrum(i)[k].getIntensity(), exp2.getSpectra()[i][k].getIntensity())
+      break;
     }
+      break;
 
   }
 
@@ -326,7 +344,9 @@ START_SECTION([EXTRA] void store(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getChromatogram(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getChromatogram(i)[k].getIntensity(), exp2.getChromatograms()[i][k].getIntensity())
+      break;
     }
+      break;
   }
 
   TOLERANCE_ABSOLUTE(1e-5)
@@ -337,7 +357,9 @@ START_SECTION([EXTRA] void store(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getSpectrum(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getSpectrum(i)[k].getMZ(), exp2.getSpectra()[i][k].getMZ())
+      break;
     }
+      break;
   }
   TOLERANCE_ABSOLUTE(0.05) // max 0.05 seconds error in RT
   for (Size i = 0; i < exp.getNrChromatograms(); i++)
@@ -346,7 +368,9 @@ START_SECTION([EXTRA] void store(const String& filename, MapType& map))
     for (Size k = 0; k < exp.getChromatogram(i).size(); k++)
     {
       TEST_REAL_SIMILAR(exp.getChromatogram(i)[k].getRT(), exp2.getChromatograms()[i][k].getRT())
+      break;
     }
+      break;
   }
 }
 END_SECTION
