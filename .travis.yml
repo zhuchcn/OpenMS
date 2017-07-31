@@ -59,7 +59,7 @@ script:
 
 #second we exclude those that are redundant, don't make sense or take too long
 matrix:
-##  include:
+  include:
 ##    - env: ENABLE_STYLE_TESTING=ON WITH_GUI=ON 
 ##      os: linux
 ##      compiler: gcc
