@@ -6,7 +6,7 @@ os:
 cache:
   - apt
   - directories:
-    - /home/travis/contrib/
+    - contrib/
 addons:
    apt:
       sources:
