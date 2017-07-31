@@ -21,17 +21,17 @@ pushd contrib
 
 pwd
 
-# # we build seqan as the versions shipped in Ubuntu are not recent enough
-# build_contrib SEQAN
-# 
-# # we build WildMagic
-# build_contrib WILDMAGIC
-# 
-# # we build Eigen as the versions shipped in Ubuntu are not recent enough
-# build_contrib EIGEN
-# 
-# # we build Sqlite as the versions shipped in Ubuntu are not recent enough
-# build_contrib SQLITE
+# we build seqan as the versions shipped in Ubuntu are not recent enough
+build_contrib SEQAN
+
+# we build WildMagic
+build_contrib WILDMAGIC
+
+# we build Eigen as the versions shipped in Ubuntu are not recent enough
+build_contrib EIGEN
+
+# we build Sqlite as the versions shipped in Ubuntu are not recent enough
+build_contrib SQLITE
 
 # leave contrib
 popd
