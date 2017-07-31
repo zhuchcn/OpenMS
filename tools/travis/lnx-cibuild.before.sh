@@ -15,6 +15,11 @@ function build_contrib {
   fi
 }
 
+# Which one does travis like and let us use? We need to be consistent as cmake
+# tends to have a different opinion...
+which pip
+which python
+
 /opt/python/2.7.13/bin/pip install -U setuptools
 /opt/python/2.7.13/bin/pip install -U pip
 /opt/python/2.7.13/bin/pip install -U nose
