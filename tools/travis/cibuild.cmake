@@ -71,7 +71,7 @@ ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}" TARGET "pyopenms" NUMBER_ERRORS _b
 # endif()
 
 ## build lib&executables, run tests
-ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}" PARALLEL_LEVEL 3)
+ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}"  INCLUDE "pyopenms" PARALLEL_LEVEL 3)
 ## send to CDash
 ctest_submit()
 
