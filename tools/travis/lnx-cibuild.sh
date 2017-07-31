@@ -66,7 +66,7 @@ if [ "$ENABLE_STYLE_TESTING" = "ON" ]; then
   export PATH=${SOURCE_DIRECTORY}/cppcheck:$PATH
 fi
 
-export PYTHON_EXE=`which python`
+export PYTHON_EXE=/opt/python/2.7.13/bin/python
 
 # set os dependent folder for preinstalled libraries
 export OS_PREFIX_PATH=/usr
