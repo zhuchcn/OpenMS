@@ -63,13 +63,13 @@ ctest_start     (Continuous)
 ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" RETURN_VALUE _configure_ret)
 # we only build when we do non-style testing
 if("$ENV{ENABLE_STYLE_TESTING}" STREQUAL "OFF")
-	ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}" pyopenms NUMBER_ERRORS _build_errors)
+	ctest_build(BUILD "${CTEST_BINARY_DIRECTORY} pyopenms" NUMBER_ERRORS _build_errors)
 else()
 	set(_build_errors 0)
 endif()
 
 ## build lib&executables, run tests
-ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}" pyopenms PARALLEL_LEVEL 3)
+ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}" PARALLEL_LEVEL 3)
 ## send to CDash
 ctest_submit()
 
