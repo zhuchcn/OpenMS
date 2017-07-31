@@ -15,6 +15,8 @@ function build_contrib {
   fi
 }
 
+which pip
+which python
 /usr/bin/pip install -U setuptools
 /usr/bin/pip install -U pip
 /usr/bin/pip install -U nose
