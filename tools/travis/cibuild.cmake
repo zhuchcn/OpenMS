@@ -69,7 +69,7 @@ else()
 endif()
 
 ## build lib&executables, run tests
-ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}" PARALLEL_LEVEL 3)
+ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}" pyopenms PARALLEL_LEVEL 3)
 ## send to CDash
 ctest_submit()
 
