@@ -4654,6 +4654,7 @@ def testString():
     assert (pystr.toString() == u"bläh")
     pystr = pyopenms.String(pystr)
     assert (pystr.toString() == u"bläh")
+    cstr = pystr.c_str()
 
     # Printing should work ...
     print(cstr)
