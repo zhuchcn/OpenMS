@@ -63,15 +63,25 @@ set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
 # travis-ci handles this for us
 ctest_start     (Continuous)
 ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" RETURN_VALUE _configure_ret)
-ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}" TARGET "pyopenms" NUMBER_ERRORS _build_errors)
-# # we only build when we do non-style testing
-# if("$ENV{ENABLE_STYLE_TESTING}" STREQUAL "OFF")
-# else()
-# 	set(_build_errors 0)
-# endif()
+
+# we only build when we do non-style testing and we may have special targets like pyopenms
+if("$ENV{ENABLE_STYLE_TESTING}" STREQUAL "OFF")
+  if("$ENV{PYOPENMS}" STREQUAL "ON")
+    ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}" TARGET "pyopenms" NUMBER_ERRORS _build_errors)
+  else()
+    ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}" NUMBER_ERRORS _build_errors)
+  endif()
+else()
+	set(_build_errors 0)
+endif()
 
 ## build lib&executables, run tests
-ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}"  INCLUDE "pyopenms" PARALLEL_LEVEL 3)
+## for pyopenms build, only run pyopenms tests
+if("$ENV{PYOPENMS}" STREQUAL "ON")
+  ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}" INCLUDE "pyopenms" PARALLEL_LEVEL 3)
+else()
+  ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}" PARALLEL_LEVEL 3)
+endif()
 ## send to CDash
 ctest_submit()
 

@@ -15,25 +15,23 @@ function build_contrib {
   fi
 }
 
-# Which one does travis like and let us use? We need to be consistent as cmake
-# tends to have a different opinion...
-which pip
-which python
+if [ "${PYOPENMS}" = "ON" ]; then
+  # Note: ensure that cmake uses the same python!
+  which pip
+  which python
 
-/opt/python/2.7.13/bin/pip install -U setuptools
-/opt/python/2.7.13/bin/pip install -U pip
-/opt/python/2.7.13/bin/pip install -U nose
-/opt/python/2.7.13/bin/pip install -U numpy
-/opt/python/2.7.13/bin/pip install -U wheel
-/opt/python/2.7.13/bin/pip install -U Cython
+  pip install -U setuptools
+  pip install -U pip
+  pip install -U nose
+  pip install -U numpy
+  pip install -U wheel
+  pip install -U Cython
 
-git clone -b feature/pxd_files https://git@github.com/hroest/autowrap.git
-pushd autowrap
-/opt/python/2.7.13/bin/python setup.py install
-popd
-
-/opt/python/2.7.13/bin/python -c "import autowrap; print autowrap"
-/opt/python/2.7.13/bin/python -c "import Cython; print Cython"
+  git clone -b feature/pxd_files https://git@github.com/hroest/autowrap.git
+  pushd autowrap
+  python setup.py install
+  popd
+fi
 
 # fetch contrib and build seqan
 git clone git://github.com/OpenMS/contrib/
