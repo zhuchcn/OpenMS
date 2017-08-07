@@ -74,9 +74,10 @@ export PYTHON_EXE=`which python`
 export OS_PREFIX_PATH=/usr
 ctest -V -S tools/travis/cibuild.cmake
 
-make pyopenms
-cd pyOpenMS
+# make pyopenms
+cd /home/travis/build/OpenMS/OpenMS/_build/pyOpenMS
 python create_cpp_extension.py
+python setup.py build
 
 # tell the user where he can find the results
 echo "Please check the build results at: http://cdash.openms.de/index.php?project=OpenMS&date="$(date +"%y-%m-%d")"#Continuous"
