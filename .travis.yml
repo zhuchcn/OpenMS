@@ -58,6 +58,7 @@ addons:
          - coinor-libosi-dev
          - coinor-libvol-dev
          - libpcre3-dev
+         - libiomp-dev
          
 before_script:
   ./tools/travis/cibuild.before.sh
@@ -82,8 +83,8 @@ matrix:
       os: linux
       compiler: clang
 
-## clang tests class and TOPP tests: without gui and without address sanitizer (debug build) 
-    - env: ENABLE_STYLE_TESTING=OFF WITH_GUI=OFF ENABLE_TOPP_TESTING=ON ENABLE_CLASS_TESTING=ON ADDRESS_SANITIZER=Off BUILD_TYPE=Debug CXX_FLAGS="-Qunused-arguments" CFLAGS="-Qunused-arguments" CCACHE_CPP2=1 OPENMP=Off
+## clang tests class and TOPP tests: without gui and without address sanitizer (debug build)
+    - env: ENABLE_STYLE_TESTING=OFF WITH_GUI=OFF ENABLE_TOPP_TESTING=ON ENABLE_CLASS_TESTING=ON ADDRESS_SANITIZER=Off BUILD_TYPE=Debug CXX_FLAGS="-Qunused-arguments" CFLAGS="-Qunused-arguments" CCACHE_CPP2=1 OPENMP=On
       os: linux
       compiler: clang
 
