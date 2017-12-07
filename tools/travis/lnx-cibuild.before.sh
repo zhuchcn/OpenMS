@@ -19,8 +19,9 @@ if [ "${PYOPENMS}" = "ON" ]; then
   # Note: ensure that cmake uses the same python!
   pyenv versions
   # select the desired Python version
-  pyenv global 3.5.3
+  # pyenv global 3.5.3
   which pip
+  which pip3
   which python
 
   # small patch to accelerate build
@@ -28,13 +29,13 @@ if [ "${PYOPENMS}" = "ON" ]; then
   ls src/pyOpenMS/create_cpp_extension.py
   sed -i 's/import time/import time\nPY_NUM_THREADS=4/g' src/pyOpenMS/create_cpp_extension.py
 
-  pip install -U setuptools
-  pip install -U pip
-  pip install -U nose
-  pip install -U numpy
-  pip install -U wheel
-  pip install -U Cython
-  pip install -U autowrap==0.14
+  pip3 install -U setuptools
+  pip3 install -U pip
+  pip3 install -U nose
+  pip3 install -U numpy
+  pip3 install -U wheel
+  pip3 install -U Cython
+  pip3 install -U autowrap==0.14
 fi
 
 # fetch contrib and build seqan
