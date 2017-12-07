@@ -1,6 +1,8 @@
 dist: trusty
 sudo: false
 language: cpp
+python: 
+  - "3.4"
 os:
  - linux
 
@@ -23,7 +25,8 @@ addons:
          - cmake
          - cmake-data
          - g++-4.8
-         - python3.5-dev
+         - python3-dev
+         - python3-pip
          - libboost-chrono1.55-dev
          - libboost-date-time1.55-dev
          - libboost-filesystem1.55-dev
