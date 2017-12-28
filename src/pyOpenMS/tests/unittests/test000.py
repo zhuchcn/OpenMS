@@ -1077,25 +1077,25 @@ def testSemanticValidator():
     assert val.setCheckUnits is not None
 
 
-@report
-def testDateTime():
-    """
-    @tests: DateTime
-     DateTime.__init__
-     DateTime.getDate
-     DateTime.getTime
-     DateTime.now
-    """
-    d = pyopenms.DateTime()
-    assert isinstance( d.getDate(), bytes)
-    assert isinstance( d.getTime(), bytes)
-    d = pyopenms.DateTime.now()
-    assert isinstance( d.getDate(), bytes)
-    assert isinstance( d.getTime(), bytes)
-
-    d.clear()
-    d.set(b"01.01.2001 11:11:11")
-    assert d.get() == b"2001-01-01 11:11:11"
+# @report
+# def testDateTime():
+#     """
+#     @tests: DateTime
+#      DateTime.__init__
+#      DateTime.getDate
+#      DateTime.getTime
+#      DateTime.now
+#     """
+#     d = pyopenms.DateTime()
+#     assert isinstance( d.getDate(), bytes)
+#     assert isinstance( d.getTime(), bytes)
+#     d = pyopenms.DateTime.now()
+#     assert isinstance( d.getDate(), bytes)
+#     assert isinstance( d.getTime(), bytes)
+# 
+#     d.clear()
+#     d.set(b"01.01.2001 11:11:11")
+#     assert d.get() == b"2001-01-01 11:11:11"
 
 @report
 def testFeature():
