@@ -1998,7 +1998,7 @@ def testFeatureMap():
     dp = pyopenms.DataProcessing()
     fm2.setDataProcessing([dp])
     assert fm2.getDataProcessing() == [dp]
-    testDataProcessing(dp)
+    # testDataProcessing(dp)
 
     fm2.setUniqueIds()
 
