@@ -863,62 +863,62 @@ def testConvexHull2D():
     assert ch == ch
 
 
-# @report
-# def testDataProcessing(dp=pyopenms.DataProcessing()):
-# 
-#     """
-#     @tests: DataProcessing
-#      DataProcessing.__init__
-#      DataProcessing.getKeys
-#      DataProcessing.getMetaValue
-#      DataProcessing.getProcessingActions
-#      DataProcessing.getSoftware
-#      DataProcessing.isMetaEmpty
-#      DataProcessing.metaValueExists
-#      DataProcessing.removeMetaValue
-#      DataProcessing.setCompletionTime
-#      DataProcessing.setMetaValue
-#      DataProcessing.setProcessingActions
-#      DataProcessing.setSoftware
-#      DataProcessing.__eq__
-#      DataProcessing.__ge__
-#      DataProcessing.__gt__
-#      DataProcessing.__le__
-#      DataProcessing.__lt__
-#      DataProcessing.__ne__
-#      DataProcessing.clearMetaInfo
-#      DataProcessing.getCompletionTime
-#     """
-# 
-#     _testMetaInfoInterface(dp)
-# 
-#     assert dp == dp
-#     assert not dp != dp
-# 
-#     assert isinstance(dp.getCompletionTime().getDate(), bytes)
-#     assert isinstance(dp.getCompletionTime().getTime(), bytes)
-#     dp.clearMetaInfo()
-#     k = []
-#     dp.getKeys(k)
-#     assert k == []
-#     dp.getMetaValue
-#     ac = dp.getProcessingActions()
-#     assert ac == set(())
-#     ac = set([ pyopenms.ProcessingAction.PEAK_PICKING, pyopenms.ProcessingAction.BASELINE_REDUCTION])
-#     dp.setProcessingActions(ac)
-#     assert len(dp.getProcessingActions() ) == 2
-#     assert isinstance(dp.getSoftware().getName(), bytes)
-#     assert isinstance(dp.getSoftware().getVersion(), bytes)
-#     dp.isMetaEmpty()
-#     dp.metaValueExists
-#     dp.removeMetaValue
-#     # dp.setCompletionTime(pyopenms.DateTime.now())
-#     s = dp.getSoftware()
-#     s.setName(b"pyopenms")
-#     dp.setSoftware(s)
-# 
-#     assert dp.getSoftware().getName() == b"pyopenms"
-# 
+@report
+def testDataProcessing(dp=pyopenms.DataProcessing()):
+
+    """
+    @tests: DataProcessing
+     DataProcessing.__init__
+     DataProcessing.getKeys
+     DataProcessing.getMetaValue
+     DataProcessing.getProcessingActions
+     DataProcessing.getSoftware
+     DataProcessing.isMetaEmpty
+     DataProcessing.metaValueExists
+     DataProcessing.removeMetaValue
+     DataProcessing.setCompletionTime
+     DataProcessing.setMetaValue
+     DataProcessing.setProcessingActions
+     DataProcessing.setSoftware
+     DataProcessing.__eq__
+     DataProcessing.__ge__
+     DataProcessing.__gt__
+     DataProcessing.__le__
+     DataProcessing.__lt__
+     DataProcessing.__ne__
+     DataProcessing.clearMetaInfo
+     DataProcessing.getCompletionTime
+    """
+
+    _testMetaInfoInterface(dp)
+
+    assert dp == dp
+    assert not dp != dp
+
+    # assert isinstance(dp.getCompletionTime().getDate(), bytes)
+    # assert isinstance(dp.getCompletionTime().getTime(), bytes)
+    dp.clearMetaInfo()
+    k = []
+    dp.getKeys(k)
+    assert k == []
+    dp.getMetaValue
+    ac = dp.getProcessingActions()
+    assert ac == set(())
+    ac = set([ pyopenms.ProcessingAction.PEAK_PICKING, pyopenms.ProcessingAction.BASELINE_REDUCTION])
+    dp.setProcessingActions(ac)
+    assert len(dp.getProcessingActions() ) == 2
+    assert isinstance(dp.getSoftware().getName(), bytes)
+    assert isinstance(dp.getSoftware().getVersion(), bytes)
+    dp.isMetaEmpty()
+    dp.metaValueExists
+    dp.removeMetaValue
+    # dp.setCompletionTime(pyopenms.DateTime.now())
+    s = dp.getSoftware()
+    s.setName(b"pyopenms")
+    dp.setSoftware(s)
+
+    assert dp.getSoftware().getName() == b"pyopenms"
+
 
 @report
 def testDataType():
@@ -1998,7 +1998,7 @@ def testFeatureMap():
     dp = pyopenms.DataProcessing()
     fm2.setDataProcessing([dp])
     assert fm2.getDataProcessing() == [dp]
-    # testDataProcessing(dp)
+    testDataProcessing(dp)
 
     fm2.setUniqueIds()
 
