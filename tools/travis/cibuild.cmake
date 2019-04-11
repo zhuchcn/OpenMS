@@ -37,7 +37,7 @@ ADDRESS_SANITIZER=$ENV{ADDRESS_SANITIZER}"
 
 if (DEFINED ENV{ENABLE_CLANG_TIDY})
       SET(INITIAL_CACHE "${INITIAL_CACHE}
-        CMAKE_CXX_CLANG_TIDY=\"clang-tidy-7;-warnings-as-errors=*;-header-filter=${CTEST_SOURCE_DIRECTORY}\"
+        CMAKE_CXX_CLANG_TIDY=clang-tidy-7;-warnings-as-errors=*;-header-filter=${CTEST_SOURCE_DIRECTORY}
       ")
 endif()
 
