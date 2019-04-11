@@ -36,6 +36,7 @@ ADDRESS_SANITIZER=$ENV{ADDRESS_SANITIZER}"
 )
 
 set(CMAKE_CXX_CLANG_TIDY "clang-tidy-7" "-warnings-as-errors=*" "-header-filter=${CTEST_SOURCE_DIRECTORY}" CACHE STRING)
+set(TIDY "clang-tidy-7" "-warnings-as-errors=*" "-header-filter=${CTEST_SOURCE_DIRECTORY}")
 
 #if (DEFINED ENV{ENABLE_CLANG_TIDY})
 #      SET(INITIAL_CACHE "${INITIAL_CACHE}
@@ -77,7 +78,7 @@ set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
 ctest_start     (Continuous)
 
 if (DEFINED ENV{ENABLE_CLANG_TIDY})
-  ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" OPTIONS "-DCMAKE_CXX_CLANG_TIDY=${CMAKE_CXX_CLANG_TIDY}" RETURN_VALUE _configure_ret)
+  ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" OPTIONS "-DCMAKE_CXX_CLANG_TIDY=${TIDY}" RETURN_VALUE _configure_ret)
 else()
   ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" RETURN_VALUE _configure_ret)
 endif()
