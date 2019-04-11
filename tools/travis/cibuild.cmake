@@ -35,9 +35,10 @@ WITH_GUI=$ENV{WITH_GUI}
 ADDRESS_SANITIZER=$ENV{ADDRESS_SANITIZER}"
 )
 
+set(CLANG_TIDY_STRING clang-tidy-7 -warnings-as-errors=* -header-filter=${CTEST_SOURCE_DIRECTORY}")
 if (DEFINED ENV{ENABLE_CLANG_TIDY})
       SET(INITIAL_CACHE "${INITIAL_CACHE}
-        CMAKE_CXX_CLANG_TIDY=clang-tidy-7;-warnings-as-errors=*;-header-filter=${CTEST_SOURCE_DIRECTORY}
+        CMAKE_CXX_CLANG_TIDY:STRING=${CLANG_TIDY_STRING}
       ")
 endif()
 
