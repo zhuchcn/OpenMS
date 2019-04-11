@@ -35,6 +35,12 @@ WITH_GUI=$ENV{WITH_GUI}
 ADDRESS_SANITIZER=$ENV{ADDRESS_SANITIZER}"
 )
 
+if (DEFINED ENV{ENABLE_CLANG_TIDY})
+      SET(INITIAL_CACHE "${INITIAL_CACHE}
+        CMAKE_CXX_CLANG_TIDY=\"clang-tidy-7;-warnings-as-errors=*;-header-filter=${CTEST_SOURCE_DIRECTORY}\"
+      ")
+endif()
+
 # create cache
 file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt" ${INITIAL_CACHE})
 
