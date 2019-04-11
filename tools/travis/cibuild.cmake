@@ -75,7 +75,12 @@ set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
 # run the classical CTest suite without update
 # travis-ci handles this for us
 ctest_start     (Continuous)
-ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" RETURN_VALUE _configure_ret)
+
+if (DEFINED ENV{ENABLE_CLANG_TIDY})
+  ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" OPTIONS "-DCMAKE_CXX_CLANG_TIDY=${CMAKE_CXX_CLANG_TIDY}" RETURN_VALUE _configure_ret)
+else()
+  ctest_configure (BUILD "${CTEST_BINARY_DIRECTORY}" RETURN_VALUE _configure_ret)
+endif()
 
 # we only build when we do non-style testing and we may have special targets like pyopenms
 if("$ENV{ENABLE_STYLE_TESTING}" STREQUAL "OFF")
@@ -85,7 +90,7 @@ if("$ENV{ENABLE_STYLE_TESTING}" STREQUAL "OFF")
     ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}" NUMBER_ERRORS _build_errors)
   endif()
 else()
-	set(_build_errors 0)
+  set(_build_errors 0)
 endif()
 
 ## build lib&executables, run tests
