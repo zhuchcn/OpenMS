@@ -36,7 +36,11 @@ ADDRESS_SANITIZER=$ENV{ADDRESS_SANITIZER}"
 )
 
 set(CMAKE_CXX_CLANG_TIDY "clang-tidy-7" "-warnings-as-errors=*" "-header-filter=${CTEST_SOURCE_DIRECTORY}" CACHE STRING)
+message(${CMAKE_CXX_CLANG_TIDY})
 set(TIDY "clang-tidy-7" "-warnings-as-errors=*" "-header-filter=${CTEST_SOURCE_DIRECTORY}")
+message(${TIDY})
+set(TIDYY "clang-tidy-7;-warnings-as-errors=*;-header-filter=${CTEST_SOURCE_DIRECTORY}")
+message(${TIDYY})
 
 #if (DEFINED ENV{ENABLE_CLANG_TIDY})
 #      SET(INITIAL_CACHE "${INITIAL_CACHE}
