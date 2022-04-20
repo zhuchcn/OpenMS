@@ -46,6 +46,7 @@
 #include <OpenMS/FORMAT/TraMLFile.h>
 #include <OpenMS/FORMAT/FASTAFile.h>
 #include <OpenMS/FORMAT/TransformationXMLFile.h>
+#include <OpenMS/METADATA/Precursor.h>
 
 #include <OpenMS/APPLICATIONS/TOPPBase.h>
 
@@ -397,6 +398,7 @@ protected:
       Int ms_level = getIntOption_("raw:ms_level");
 
       PeakMap out;
+      unordered_map<string, string> native_id_map;
       UInt rt_auto = 0;
       UInt native_id = 0;
       for (Size i = 0; i < file_list.size(); ++i)
@@ -420,6 +422,8 @@ protected:
         {
           writeLog_(String("Warning: More than one scan in file '") + filename + "'! All scans will have the same retention time!");
         }
+
+        native_id_map.clear();
 
         // handle special raw data options:
         for (MSSpectrum& spec : in)
@@ -455,10 +459,23 @@ protected:
           }
 
           spec.setRT(rt_final);
-          spec.setNativeID("spectrum=" + String(native_id));
+          original_id = spec.getNativeID();
+          new_id = "spectrum=" + String(native_id);
+          native_id_map[original_id] = new_id;
+          spec.setNativeID(new_id);
           if (ms_level > 0)
           {
             spec.setMSLevel(ms_level);
+          }
+          
+          for (Precursor& perc : spec.getPrecursors())
+          {
+            if (!perc.metaValueExists('spectrum_ref')) {
+              continue
+            }
+            original_perc_id = perc.getMetaValue('spectrum_ref')
+            new_perc_id = native_id_map[original_perc_id]
+            perc.setMetaValue('spectrum_ref', new_perc_id)
           }
           ++native_id;
         }
