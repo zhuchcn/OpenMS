@@ -191,13 +191,21 @@ namespace OpenMS
     const IdentificationRuns id_runs = IdentificationRuns(proteins);
 
     // Collect all protein hits
-    vector<ProteinHit> all_protein_hits;
+    // vector<ProteinHit> all_protein_hits;
+    map<String, vector<ProteinHit> > accession_to_protein_hits;
     for (ProteinIdentification& prot : proteins)
     {
       // remove protein identification file origin
       prot.removeMetaValue(names_of_OriginAnnotationFormat[origin_annotation_fmt]);
       vector<ProteinHit>& protein_hits  = prot.getHits();
-      all_protein_hits.insert(all_protein_hits.end(), protein_hits.begin(), protein_hits.end());
+      for (prot : protein_hits) 
+      {
+        std::hash<string> accessions = prot.getAccession();
+        for (acc : accessions) 
+        {
+          accession_to_protein_hits[acc].push_back(prot);
+        }
+      }
     }
 
     map<String, pair<UInt, UInt> > basename_to_numeric;
@@ -230,7 +238,7 @@ namespace OpenMS
 
       // returns all protein hits that are associated with the given peptide hits
       vector<ProteinHit> protein2accessions;
-      getProteinHits_(protein2accessions, all_protein_hits, protein_accessions);
+      getProteinHits_(protein2accessions, accession_to_protein_hits, protein_accessions);
 
       // search for the protein identification of the peptide identification
       ProteinIdentification prot_ident;
@@ -385,17 +393,12 @@ IDRipper::OriginAnnotationFormat IDRipper::detectOriginAnnotationFormat_(map<Str
     }
   }
 
-  void IDRipper::getProteinHits_(vector<ProteinHit>& result, const vector<ProteinHit>& protein_hits, const vector<String>& protein_accessions)
+  void IDRipper::getProteinHits_(vector<ProteinHit>& result, const map<String, vector<ProteinHit> >& accession_to_protein_hit_map, const vector<String>& protein_accessions)
   {
     for (const String& it : protein_accessions)
     {
-      for (const ProteinHit& prot : protein_hits)
-      {
-        if (prot.getAccession().compare(it) == 0)
-        {
-          result.push_back(prot);
-        }
-      }
+      vector<ProteinHit> protein_hits = accession_to_protein_hit_map[it]
+      result.insert(result.end(), protein_hits.begin(), protein_hits.end())
     }
   }
 
