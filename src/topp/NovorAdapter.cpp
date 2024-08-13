@@ -63,7 +63,7 @@ Novor must be installed before this wrapper can be used. This wrapper was succes
 
 Novor settings can be either used via command line or directly using a param file (param.txt).
 
-Parameter names have been changed to match names found in other search engine adapters. For further information  check the Novor wiki (http://wiki.rapidnovor.com/wiki/Main_Page) and the official tool website (https://www.rapidnovor.com/). 
+Parameter names have been changed to match names found in other search engine adapters. For further information  check the Novor wiki (http://wiki.rapidnovor.com/wiki/Main_Page) and the official tool website (https://www.rapidnovor.com/).
 
 <B>The command line parameters of this tool are:</B>
 @verbinclude TOPP_NovorAdapter.cli
@@ -79,7 +79,7 @@ class TOPPNovorAdapter :
 {
 public:
   TOPPNovorAdapter() :
-    TOPPBase("NovorAdapter", "Performs de novo sequencing of peptides from MS/MS data with Novor.", true, 
+    TOPPBase("NovorAdapter", "Performs de novo sequencing of peptides from MS/MS data with Novor.", true,
     {
       Citation{"Ma Bin",
                "Novor: Real-Time Peptide de Novo Sequencing Software",
@@ -93,9 +93,9 @@ protected:
   // it gets automatically called on tool execution
   void registerOptionsAndFlags_() override
   {
-    // thirdparty executable 
+    // thirdparty executable
     registerInputFile_("executable", "<jar>", "novor.jar", "novor.jar", false, false, ListUtils::create<String>("skipexists"));
-    // input, output and parameter file 
+    // input, output and parameter file
     registerInputFile_("in", "<file>", "", "MzML Input file");
     setValidFormats_("in", ListUtils::create<String>("mzML"));
     registerOutputFile_("out", "<file>", "", "Novor idXML output");
@@ -121,11 +121,11 @@ protected:
    // forbidden residues
    registerStringList_("forbiddenResidues", "<mods>", vector<String>(), "Forbidden Resiudes", false);
    setValidStrings_("forbiddenResidues", ListUtils::create<String>("I,U"));
- 
+
    // parameter novorFile will not be wrapped here
    registerInputFile_("novorFile", "<file>", "", "File to introduce customized algorithm parameters for advanced users (otional .novor file)", false);
    setValidFormats_("novorFile", ListUtils::create<String>("novor"));
-   
+
    registerInputFile_("java_executable", "<file>", "java", "The Java executable. Usually Java is on the system PATH. If Java is not found, use this parameter to specify the full path to Java", false, false, ListUtils::create<String>("skipexists"));
    registerIntOption_("java_memory", "<num>", 3500, "Maximum Java heap size (in MB)", false);
 
@@ -136,7 +136,7 @@ protected:
     vector<String> variable_mods = getStringList_("variable_modifications");
     vector<String> fixed_mods = getStringList_("fixed_modifications");
     vector<String> forbidden_residues = getStringList_("forbiddenResidues");
-  
+
     String variable_mod = ListUtils::concatenate(variable_mods, ',');
     String fixed_mod = ListUtils::concatenate(fixed_mods, ',');
     String forbidden_res = ListUtils::concatenate(forbidden_residues, ',');
@@ -149,7 +149,7 @@ protected:
        << "variableModifications = " << variable_mod << "\n"
        << "fixedModifications = "    << fixed_mod << "\n"
        << "forbiddenResidues = " << forbidden_res << "\n";
-  
+
     // novorFile for custom alogrithm parameters of nova
     String cparamfile = getStringOption_("novorFile");
     ifstream cpfile(cparamfile);
@@ -175,7 +175,7 @@ protected:
     const String java_executable = getStringOption_("java_executable");
     QString java_memory = "-Xmx" + QString::number(getIntOption_("java_memory")) + "m";
 
-    QString executable = getStringOption_("executable").toQString();   
+    QString executable = getStringOption_("executable").toQString();
 
     if (executable.isEmpty())
     {
@@ -194,16 +194,16 @@ protected:
 
     writeLogInfo_("Executable is: " + executable);
     const QString & path_to_executable = File::path(executable).toQString();
-    
+
     //-------------------------------------------------------------
     // reading input
     //-------------------------------------------------------------
-    
+
     // tmp_dir
     File::TempDir tmp_dir(debug_level_ >= 2);
 
     // parameter file
-    String tmp_param = tmp_dir.getPath() + "param.txt";    
+    String tmp_param = tmp_dir.getPath() + "param.txt";
     ofstream os(tmp_param.c_str());
     createParamFile_(os);
 
@@ -251,8 +251,8 @@ protected:
     QStringList process_params;
     process_params << java_memory
                    << "-jar" << executable
-                   << "-f" 
-                   << "-o" << tmp_out.toQString()               
+                   << "-f"
+                   << "-o" << tmp_out.toQString()
                    << "-p" << tmp_param.toQString()
                    << tmp_mgf.toQString();
 
@@ -285,15 +285,15 @@ protected:
       return ExitCodes::EXTERNAL_PROGRAM_ERROR;
     }
     CsvFile csv(tmp_out, ',');
-        
+
     vector<PeptideIdentification> peptide_ids;
     for (Size i = 0; i != csv.rowCount(); ++i)
     {
       StringList sl;
       csv.getRow(i, sl);
-        
+
       if (sl.empty() || sl[0][0] == '#') { continue; }
-        
+
       PeptideIdentification pi;
       pi.setSpectrumReference( exp[mapping.findByScanNumber(sl[1].toInt())].getNativeID());
       pi.setScoreType("novorscore");
@@ -310,25 +310,26 @@ protected:
       sequence.substitute("(Cam)", "(Carbamidomethyl)");
       sequence.substitute("(O)","(Oxidation)");
       sequence.substitute("(PyroCam)", "(Pyro-carbamidomethyl)");
-        
-      ph.setSequence(AASequence::fromString(sequence));      
+      sequence.substitute("(Pyro-Glu)", "(Gln->pyro-Glu)");
+
+      ph.setSequence(AASequence::fromString(sequence));
       ph.setMetaValue("pepMass(denovo)", sl[5].toDouble());
       ph.setMetaValue("err(data-denovo)", sl[6].toDouble());
       ph.setMetaValue("ppm(1e6*err/(mz*z))", sl[7].toDouble());
       ph.setMetaValue("aaScore", sl[10].toQString());
 
-      pi.getHits().push_back(std::move(ph));   
+      pi.getHits().push_back(std::move(ph));
       peptide_ids.push_back(std::move(pi));
-    } 
+    }
 
-    // extract version from comment 
+    // extract version from comment
     // #              v1.06.0634 (stable)
     // v1.06.0634 (stable)
     vector<ProteinIdentification> protein_ids;
     StringList versionrow;
     csv.getRow(2, versionrow);
     String version = versionrow[0].substr(versionrow[0].find("v."));
-      
+
     protein_ids = vector<ProteinIdentification>(1);
     protein_ids[0].setDateTime(DateTime::now());
     protein_ids[0].setSearchEngine("Novor");
@@ -337,7 +338,7 @@ protected:
     ProteinIdentification::SearchParameters search_parameters;
     search_parameters.db = "denovo";
     search_parameters.mass_type = ProteinIdentification::MONOISOTOPIC;
-    
+
     // if a parameter file is used the modifications need to be parsed from the novor output csv
     search_parameters.fixed_modifications = getStringList_("fixed_modifications");
     search_parameters.variable_modifications = getStringList_("variable_modifications");
@@ -346,12 +347,12 @@ protected:
     search_parameters.precursor_mass_tolerance_ppm = getStringOption_("precursor_error_units") == "ppm" ? true : false;
     search_parameters.fragment_mass_tolerance_ppm = false;
     search_parameters.digestion_enzyme = *ProteaseDB::getInstance()->getEnzyme(getStringOption_("enzyme"));
-     
+
     //StringList inputFile;
     //inputFile[0] = in;
-    //protein_ids[0].setPrimaryMSRunPath(inputFile); 
+    //protein_ids[0].setPrimaryMSRunPath(inputFile);
     protein_ids[0].setSearchParameters(search_parameters);
-     
+
     OPENMS_LOG_INFO << "NOVOR created " << peptide_ids.size() << " PSMs from " << count_written << " MS2 spectra (" << (peptide_ids.size() * 100 / count_written) << "% annotated)\n";
 
     FileHandler().storeIdentifications(out, protein_ids, peptide_ids, {FileTypes::IDXML});
